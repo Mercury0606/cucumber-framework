@@ -9,6 +9,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.Assert;
+import pageObject.LandingPage;
 import utils.TestContextSetup;
 
 
@@ -43,10 +44,11 @@ public class LandingPageStepDefinition {
 
     @When("User searched with shortname {string} and extracted actual name of product")
     public void user_searched_with_shortname_and_extracted_actual_name_of_product(String shortName) throws InterruptedException {
-        WebElement searchBox = testContextSetup.driver.findElement(By.xpath("//input[@type='search']"));
-        searchBox.sendKeys(shortName);
+        LandingPage landingPage = new LandingPage(testContextSetup.driver);
+        landingPage.searchItem(shortName);
+
         Thread.sleep(2000);
-        testContextSetup.landingPageProductName = testContextSetup.driver.findElement(By.cssSelector("h4.product-name")).getText().split("-")[0].trim();
+        testContextSetup.landingPageProductName = landingPage.getSearchText().split("-")[0].trim();
         System.out.println(">>>"+landingPageProductName+" is exteacted from Home Page ");
     }
 

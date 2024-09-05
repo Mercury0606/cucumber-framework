@@ -9,6 +9,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.Assert;
+import pageObject.LandingPage;
+import pageObject.OffersPage;
 import utils.TestContextSetup;
 
 import java.util.Iterator;
@@ -26,13 +28,15 @@ public class OfferPageStepDefinition {
 
     @Then("User searched with same {string} in offers page")
     public void user_searched_with_same_shortname_in_offers_page_to_check_if_product_exists(String shortName) {
-        testContextSetup.driver.findElement(By.linkText("Top Deals")).click();
         switchToOfferPage();
-        testContextSetup.driver.findElement(By.id("search-field")).sendKeys( shortName );
-        offerPageProductName = testContextSetup.driver.findElement(By.cssSelector(" tr td:nth-child(1)")).getText();
+        OffersPage offersPage = new OffersPage(testContextSetup.driver);
+        offersPage.searchItem(shortName);
+        offerPageProductName = offersPage.getSearchText();
 
     }
     public void switchToOfferPage(){
+        LandingPage landingPage = new LandingPage(testContextSetup.driver);
+        landingPage.selectTopDeals();
         //if is already switched to offer page -> skip below part
         if (!testContextSetup.driver.getCurrentUrl().equalsIgnoreCase("https://rahulshettyacademy.com/seleniumPractise/#/offers")){
             Set<String> windowHandles = testContextSetup.driver.getWindowHandles();
