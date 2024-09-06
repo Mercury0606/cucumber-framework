@@ -11,6 +11,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.Assert;
 import pageObject.LandingPage;
 import pageObject.OffersPage;
+import pageObject.PageObjectManager;
 import utils.TestContextSetup;
 
 import java.util.Iterator;
@@ -18,6 +19,7 @@ import java.util.Set;
 
 public class OfferPageStepDefinition {
     public WebDriver driver;
+    public PageObjectManager pageObjectManager;
     public String offerPageProductName;
     public String landingPageProductName;
     TestContextSetup testContextSetup;
@@ -35,15 +37,12 @@ public class OfferPageStepDefinition {
 
     }
     public void switchToOfferPage(){
-        LandingPage landingPage = new LandingPage(testContextSetup.driver);
+        LandingPage landingPage = testContextSetup.pageObjectManager.getLandingPage();
+//        LandingPage landingPage = new LandingPage(testContextSetup.driver);
         landingPage.selectTopDeals();
         //if is already switched to offer page -> skip below part
         if (!testContextSetup.driver.getCurrentUrl().equalsIgnoreCase("https://rahulshettyacademy.com/seleniumPractise/#/offers")){
-            Set<String> windowHandles = testContextSetup.driver.getWindowHandles();
-            Iterator<String> iterator = windowHandles.iterator();
-            String parentWindow = iterator.next();
-            String childWindow = iterator.next();
-            testContextSetup.driver.switchTo().window(childWindow);
+            testContextSetup.genericUtils.switchWindowToChild();
         }
 
     }
