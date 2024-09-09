@@ -3,6 +3,8 @@ package utils;
 import org.openqa.selenium.WebDriver;
 import pageObject.PageObjectManager;
 
+import java.io.IOException;
+
 public class  TestContextSetup {
     public WebDriver driver;
     public String landingPageProductName;
@@ -11,7 +13,7 @@ public class  TestContextSetup {
     public GenericUtils genericUtils;
 
 
-    public TestContextSetup() {
+    public TestContextSetup() throws IOException {
         testBase=new TestBase();
         driver = testBase.WebDriverManager();
         pageObjectManager = new PageObjectManager(driver);
