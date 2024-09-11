@@ -1,8 +1,8 @@
 package stepDefinitions;
 
-import io.cucumber.java.en.Given;
+
 import io.cucumber.java.en.Then;
-import io.cucumber.java.en.When;
+
 import org.openqa.selenium.WebDriver;
 import pageObject.CheckoutPage;
 import pageObject.LandingPage;
@@ -13,8 +13,10 @@ import utils.TestContextSetup;
 public class CheckoutPageStepDefinition {
     LandingPage landingPage ;
     CheckoutPage checkoutPage;
+
     public WebDriver driver;
     TestContextSetup testContextSetup;
+    String productName;
 
     public CheckoutPageStepDefinition(TestContextSetup testContextSetup) {
         this.testContextSetup=testContextSetup;
@@ -26,12 +28,13 @@ public class CheckoutPageStepDefinition {
 
         landingPage.CheckoutItems();
         Thread.sleep(2000);
-
+        productName = name;
 
     }
     @Then("Verify user has ability to enter promo code and place the order")
     public void verify_user_has_ability_to_enter_promo_code_and_place_the_order() {
         String code = String.valueOf(1231);
+        checkoutPage.assertProductName(productName);
         checkoutPage.proceedPromo(code);
 
     }
