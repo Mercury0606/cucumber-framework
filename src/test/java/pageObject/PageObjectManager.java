@@ -6,6 +6,8 @@ public class PageObjectManager {
     public WebDriver driver;
     public LandingPage landingPage;
     public OffersPage offersPage;
+    public CheckoutPage checkoutPage;
+
 
 
     public PageObjectManager(WebDriver driver) {
@@ -22,4 +24,9 @@ public class PageObjectManager {
     public OffersPage getOffersPage() {
         return new OffersPage(driver);
     }
+
+    public CheckoutPage getCheckoutPage() {
+        return new CheckoutPage(driver);
+    }
+
 }
