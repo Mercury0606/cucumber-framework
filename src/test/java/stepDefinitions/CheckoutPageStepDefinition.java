@@ -32,9 +32,10 @@ public class CheckoutPageStepDefinition {
 
     }
     @Then("Verify user has ability to enter promo code and place the order")
-    public void verify_user_has_ability_to_enter_promo_code_and_place_the_order() {
+    public void verify_user_has_ability_to_enter_promo_code_and_place_the_order() throws InterruptedException {
         String code = String.valueOf(1231);
         checkoutPage.assertProductName(productName);
+        Thread.sleep(2000);
         checkoutPage.proceedPromo(code);
 
     }

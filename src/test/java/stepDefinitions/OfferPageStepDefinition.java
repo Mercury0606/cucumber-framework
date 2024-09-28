@@ -1,13 +1,7 @@
 package stepDefinitions;
 
-import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
-import io.cucumber.java.en.When;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.Assert;
 import pageObject.LandingPage;
 import pageObject.OffersPage;
@@ -29,10 +23,11 @@ public class OfferPageStepDefinition {
     }
 
     @Then("^User searched with same (.+) in offers page$")
-    public void user_searched_with_same_shortname_in_offers_page_to_check_if_product_exists(String shortName) {
+    public void user_searched_with_same_shortname_in_offers_page_to_check_if_product_exists(String shortName) throws InterruptedException {
         switchToOfferPage();
         OffersPage offersPage = new OffersPage(testContextSetup.driver);
         offersPage.searchItem(shortName);
+        Thread.sleep(2000);
         offerPageProductName = offersPage.getSearchText();
 
     }
